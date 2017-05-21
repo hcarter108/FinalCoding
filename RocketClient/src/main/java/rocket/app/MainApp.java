@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
+import exceptions.RateException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -151,7 +152,12 @@ public class MainApp extends Application {
 			Platform.runLater(() -> {
 				if (message instanceof LoanRequest) {
 					LoanRequest lq = (LoanRequest)message;
-					rController.HandleLoanRequestDetails(lq);
+					try {
+						rController.HandleLoanRequestDetails(lq);
+					} catch (RateException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				} 
 				else if (message instanceof Object) {
 				}
